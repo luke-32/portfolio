@@ -1,0 +1,456 @@
+/* ================================================================
+   Lukas Berg — Portfolio
+   ----------------------------------------------------------------
+   Everything you'd want to tweak lives in :root below.
+   Change colors, type scale, and spacing in one place.
+   ================================================================ */
+
+:root {
+  /* ---- Color ---- */
+  --bg:        #f4f1ea;   /* warm off-white base                  */
+  --bg-tile:   #ece8df;   /* slightly deeper panel tone           */
+  --ink:       #16140f;   /* near-black text                      */
+  --ink-soft:  #5c574d;   /* muted text                           */
+  --line:      #d9d3c6;   /* hairline borders                     */
+  --accent:    #ff4d2e;   /* ONE punchy accent (warm vermilion)   */
+  --accent-ink:#ffffff;   /* text on accent                       */
+
+  /* ---- Type families ---- */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  /* ---- Fluid type scale (mobile-first, scales with viewport) ---- */
+  --fs-hero:  clamp(2.75rem, 8vw, 6.5rem);   /* caps at 104px, per design */
+  --fs-h2:    clamp(2rem, 5vw, 3.5rem);      /* caps at 56px, per design  */
+  --fs-h3:    clamp(1.4rem, 2.4vw, 2rem);
+  --fs-lead:  clamp(1.3rem, 2.2vw, 1.625rem);/* about lead — 26px          */
+  --fs-sub:   clamp(1.1rem, 1.8vw, 1.375rem);/* hero sub — 22px            */
+  --fs-body:  1.0625rem;
+  --fs-label: 0.8rem;
+
+  /* ---- Spacing rhythm ---- */
+  --space-section: clamp(5rem, 12vw, 11rem);
+  --space-1: 0.5rem;
+  --space-2: 1rem;
+  --space-3: 2rem;
+  --space-4: 3rem;
+  --space-5: 5rem;
+
+  /* ---- Layout ---- */
+  --container: 1280px;
+  --gutter: clamp(1.25rem, 5vw, 4rem);
+  --radius: 0px;          /* sharp corners for the editorial grid look */
+
+  /* ---- Grid framing (mikekus-style bordered modular grid) ---- */
+  --grid-line: #cbc4b3;   /* hairline used for the frame + dividers   */
+  --frame: 1px solid var(--grid-line);
+  --frame-inset: clamp(14px, 2vw, 24px);  /* margin to the inset vertical lines */
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ----------------------------------------------------------------
+   Reset / base
+   ---------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  /* offset so anchored sections clear the sticky nav */
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  /* sections run full-bleed; horizontal strokes span the whole viewport */
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin: 0;
+}
+
+a { color: inherit; }
+
+img { max-width: 100%; display: block; }
+
+.accent { color: var(--accent); }
+
+/* Full-width wrapper — no border of its own. */
+.frame { background: var(--bg); }
+
+/* Every section is full-bleed: a full-viewport-width horizontal stroke below
+   it, and a small inset so the inner frame's vertical lines sit in from the
+   edges (horizontals run past the verticals → the grid look). */
+.nav,
+.hero,
+.section,
+.footer { padding-inline: var(--frame-inset); }
+
+.nav,
+.hero,
+.section { border-bottom: var(--frame); }
+
+/* Inner frame — carries the inset vertical grid lines + content padding. */
+.container {
+  width: 100%;
+  padding-inline: var(--gutter);
+  border-inline: var(--frame);
+}
+
+/* ----------------------------------------------------------------
+   Accessibility helpers
+   ---------------------------------------------------------------- */
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: -100px;
+  background: var(--ink);
+  color: var(--bg);
+  padding: 0.6rem 1rem;
+  border-radius: var(--radius);
+  z-index: 100;
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus { top: var(--space-2); }
+
+/* Visible focus state across all interactive elements */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ----------------------------------------------------------------
+   1. NAV
+   ---------------------------------------------------------------- */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter: blur(10px);
+}
+
+.nav__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 4.5rem;
+}
+
+.nav__logo {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+  letter-spacing: -0.02em;
+}
+.nav__logo-dot { color: var(--accent); }
+
+.nav__links {
+  display: flex;
+  gap: clamp(1rem, 3vw, 2.5rem);
+}
+
+.nav__links a {
+  position: relative;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0.25rem 0;
+}
+
+/* animated underline on hover/focus */
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.nav__links a:hover::after,
+.nav__links a:focus-visible::after { transform: scaleX(1); }
+
+/* ----------------------------------------------------------------
+   Section scaffolding
+   ---------------------------------------------------------------- */
+/* The full-bleed horizontal stroke comes from the section's border-bottom;
+   the inner container holds the vertical padding so labels get top breathing
+   room below the line (symmetric top/bottom). */
+.section { padding-block: 0; }
+.section .container { padding-block: clamp(3rem, 6vw, 4rem); }   /* ~64px */
+
+.section__label {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 0;            /* spacing handled by container gaps */
+}
+
+/* ----------------------------------------------------------------
+   2. HERO
+   ---------------------------------------------------------------- */
+/* hero content stacks with a uniform 44px rhythm; vertical padding lives on
+   the inner container so the inset vertical lines span the full hero height */
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: clamp(1.75rem, 3vw, 2.75rem);
+  padding-block: clamp(4rem, 9vw, 8.75rem);   /* up to 140px, per design */
+}
+
+.hero__headline {
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
+
+.hero__sub {
+  font-size: var(--fs-sub);
+  color: var(--ink-soft);
+  max-width: 620px;
+  margin: 0;
+}
+
+/* ----------------------------------------------------------------
+   Buttons
+   ---------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+  padding: 0.95rem 1.75rem;
+  border-radius: 999px;
+  transition: transform 0.25s var(--ease), background 0.25s var(--ease);
+}
+
+.btn--primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.btn--primary:hover {
+  transform: translateY(-2px);
+  background: color-mix(in srgb, var(--accent) 88%, black);
+}
+.btn--primary:hover .btn__arrow { transform: translateY(3px); }
+.btn__arrow { transition: transform 0.25s var(--ease); }
+
+/* ----------------------------------------------------------------
+   3. ABOUT
+   ---------------------------------------------------------------- */
+.about__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(2rem, 5vw, 4rem);   /* 64px label→body, per design */
+}
+
+.about__lead {
+  font-family: var(--font-display);
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--ink);
+  margin: 0 0 var(--space-3);
+}
+
+.about__body { max-width: 680px; }
+.about__body p:not(.about__lead) { color: var(--ink-soft); }
+.about__body p + p { margin-top: var(--space-2); }
+
+/* ----------------------------------------------------------------
+   4. WORK
+   ---------------------------------------------------------------- */
+.work__head { margin-bottom: 2.5rem; }   /* ~40px gap to the grid */
+
+/* One bordered box containing the project rows */
+.work__grid {
+  display: flex;
+  flex-direction: column;
+  border: var(--frame);
+}
+
+/* Each project is a horizontal row: thumbnail + text, top-aligned */
+.tile {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  text-decoration: none;
+  color: inherit;
+  border-bottom: var(--frame);         /* divider between rows */
+  transition: background 0.3s var(--ease);
+}
+.tile:last-child { border-bottom: 0; }
+.tile:hover,
+.tile:focus-visible { background: var(--bg-tile); }
+
+/* fixed gradient thumbnail on the left (~280×200, scales down on small screens) */
+.tile__media {
+  flex: none;
+  width: clamp(120px, 24vw, 280px);
+  aspect-ratio: 7 / 5;
+  overflow: hidden;
+}
+
+/* LUKAS: these gradient blocks stand in for real project imagery */
+.tile__media--1 { background: linear-gradient(144deg, #ff4d2e, #ffb199); }
+.tile__media--2 { background: linear-gradient(144deg, #1f2a44, #4a6fa5); }
+.tile__media--3 { background: linear-gradient(144deg, #2b2b2b, #6f6a60); }
+
+/* text column — top-aligned, vertical padding only */
+.tile__meta {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.5rem 0;
+  min-width: 0;
+}
+
+.tile__name { font-size: 1.5rem; }
+.tile__cat {
+  color: var(--ink-soft);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.tile__cta {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--accent);
+  margin-top: 0.25rem;
+  transition: transform 0.3s var(--ease);
+}
+.tile:hover .tile__cta,
+.tile:focus-visible .tile__cta { transform: translateX(4px); }
+
+/* ----------------------------------------------------------------
+   5. CONTACT
+   ---------------------------------------------------------------- */
+/* contact stacks vertically with a uniform ~40px rhythm */
+.contact__grid,
+.contact__body {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+.contact__line {
+  font-size: var(--fs-h2);
+  line-height: 1.04;
+}
+
+.contact__email {
+  align-self: flex-start;
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: var(--fs-sub);
+  color: var(--ink);
+  text-decoration: none;
+  transition: color 0.25s var(--ease);
+}
+.contact__email:hover { color: var(--accent); }
+
+.contact__socials {
+  list-style: none;
+  display: flex;
+  gap: var(--space-3);
+  padding: 0.75rem 0 0;   /* 12px top, per design */
+  margin: 0;
+}
+.contact__socials a {
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+}
+.contact__socials a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -3px;
+  width: 100%; height: 2px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s var(--ease);
+}
+.contact__socials a:hover::after,
+.contact__socials a:focus-visible::after { transform: scaleX(1); }
+
+/* ----------------------------------------------------------------
+   6. FOOTER
+   ---------------------------------------------------------------- */
+.footer__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  padding-block: var(--space-4);
+  /* top line is Contact's full-width border-bottom; footer has no bottom line */
+}
+.footer__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  margin: 0;
+}
+.footer__year { color: var(--ink-soft); margin: 0; }
+.footer__links { display: flex; gap: var(--space-3); }
+.footer__links a { text-decoration: none; font-size: 0.95rem; }
+.footer__links a:hover { color: var(--accent); }
+
+/* ----------------------------------------------------------------
+   Scroll reveal (progressively enhanced — see script.js)
+   ---------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.reveal.is-visible { opacity: 1; transform: none; }
+/* stagger helpers */
+.reveal[data-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-delay="2"] { transition-delay: 0.16s; }
+
+/* ================================================================
+   RESPONSIVE — desktop layout enhancements
+   ================================================================ */
+
+
+
+/* ----------------------------------------------------------------
+   Respect reduced-motion preferences
+   ---------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Local-dev only: stop the browser caching CSS/JS during preview.
+       Safe to remove before deploying if you want long-term caching. -->
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+
+  <!-- ============================================================= -->
+  <!-- SEO / SOCIAL — Lukas: update title, description, and URLs     -->
+  <!-- ============================================================= -->
+  <title>Lukas Durza — UX/UI Designer</title>
+  <meta
+    name="description"
+    content="Lukas Durza is a UX/UI designer crafting clear, human-centred digital products."
+  />
+
+  <!-- Google Fonts: Space Grotesk (display) + Inter (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Skip link for keyboard / screen-reader users -->
+  <a class="skip-link" href="#hero">Skip to content</a>
+
+  <!-- One bordered column wraps the whole page so the vertical grid
+       lines run continuously from the nav down to the footer. -->
+  <div class="frame">
+
+  <!-- ============================================================= -->
+  <!-- 1. STICKY TOP NAV                                             -->
+  <!-- ============================================================= -->
+  <header class="nav" id="top">
+    <div class="container nav__inner">
+      <!-- LUKAS: swap this for your name or logo mark -->
+      <a class="nav__logo" href="#top" aria-label="Lukas Durza — home">
+        Lukas&nbsp;Durza<span class="nav__logo-dot">.</span>
+      </a>
+
+      <nav class="nav__links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- =========================================================== -->
+    <!-- 2. HERO                                                     -->
+    <!-- =========================================================== -->
+    <section class="hero" id="hero">
+      <div class="container">
+        <!-- LUKAS: this headline is the centrepiece — make it yours -->
+        <h1 class="hero__headline reveal">
+          I design calm,<br />
+          confident products<br />
+          people <span class="accent">trust</span>.
+        </h1>
+
+        <p class="hero__sub reveal" data-delay="1">
+          <!-- LUKAS: one short supporting line about what you do -->
+          UX/UI designer focused on turning complex problems into clear,
+          human-centred interfaces.
+        </p>
+
+        <a class="btn btn--primary reveal" data-delay="2" href="#work">
+          View work
+          <span class="btn__arrow" aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <!-- =========================================================== -->
+    <!-- 3. ABOUT                                                    -->
+    <!-- =========================================================== -->
+    <section class="section about" id="about">
+      <div class="container about__grid">
+        <p class="section__label reveal">About</p>
+
+        <div class="about__body">
+          <!-- LUKAS: rewrite in your own voice — keep it tight -->
+          <p class="about__lead reveal">
+            I’m Lukas, a UX/UI designer with eight years spent between
+            research, interface design, development and the messy bit in between.
+          </p>
+          <p class="reveal" data-delay="1">
+            I care about the details users never notice — the spacing that
+            feels right, the flow that never makes you stop and think, the
+            copy that says exactly enough. Good design, to me, is the absence
+            of friction.
+          </p>
+          <p class="reveal" data-delay="2">
+            I work closely with engineers and founders, prototype early, and
+            test often. Less polish for its own sake, more clarity that earns
+            its place.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================== -->
+    <!-- 4. WORK — 3 project tiles                                   -->
+    <!-- =========================================================== -->
+    <section class="section work" id="work">
+      <div class="container">
+        <div class="work__head reveal">
+          <p class="section__label">Work</p>
+        </div>
+
+        <!-- LUKAS: replace the 3 tiles below with real case studies. -->
+        <!-- Keep the structure; swap href, image, title, category.   -->
+        <div class="work__grid">
+
+          <!-- PROJECT 1 -->
+          <a class="tile reveal" href="#" aria-label="View project: Northwind Banking App">
+            <!-- LUKAS: replace this color block with a real image -->
+            <div class="tile__media tile__media--1" role="img"
+                 aria-label="Project thumbnail placeholder for Northwind Banking App"></div>
+            <div class="tile__meta">
+              <h3 class="tile__name">Northwind Banking App</h3>
+              <p class="tile__cat">UX/UI · Product Design</p>
+              <span class="tile__cta">View project →</span>
+            </div>
+          </a>
+
+          <!-- PROJECT 2 -->
+          <a class="tile reveal" data-delay="1" href="#" aria-label="View project: Atlas Health Dashboard">
+            <div class="tile__media tile__media--2" role="img"
+                 aria-label="Project thumbnail placeholder for Atlas Health Dashboard"></div>
+            <div class="tile__meta">
+              <h3 class="tile__name">Atlas Health Dashboard</h3>
+              <p class="tile__cat">UX Research · Design System</p>
+              <span class="tile__cta">View project →</span>
+            </div>
+          </a>
+
+          <!-- PROJECT 3 -->
+          <a class="tile reveal" data-delay="2" href="#" aria-label="View project: Field Notes Mobile">
+            <div class="tile__media tile__media--3" role="img"
+                 aria-label="Project thumbnail placeholder for Field Notes Mobile"></div>
+            <div class="tile__meta">
+              <h3 class="tile__name">Field Notes Mobile</h3>
+              <p class="tile__cat">iOS · Interaction Design</p>
+              <span class="tile__cta">View project →</span>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================== -->
+    <!-- 5. CONTACT                                                  -->
+    <!-- =========================================================== -->
+    <section class="section contact" id="contact">
+      <div class="container contact__grid">
+        <p class="section__label reveal">Contact</p>
+
+        <div class="contact__body">
+          <!-- LUKAS: invitation line + your real email & socials -->
+          <h2 class="contact__line reveal">
+            Have a project in mind? <br />
+            Let’s <span class="accent">make it clear</span>.
+          </h2>
+
+          <a class="contact__email reveal" data-delay="1" href="mailto:hello@lukasdurza.com">
+            hello@lukasdurza.com
+          </a>
+
+          <ul class="contact__socials reveal" data-delay="2">
+            <li><a href="#" target="_blank" rel="noopener noreferrer">LinkedIn ↗</a></li>
+            <li><a href="#" target="_blank" rel="noopener noreferrer">Dribbble ↗</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================================================= -->
+  <!-- 6. FOOTER                                                     -->
+  <!-- ============================================================= -->
+  <footer class="footer">
+    <div class="container footer__inner">
+      <!-- LUKAS: name — year is auto-filled by script.js -->
+      <p class="footer__name">Lukas&nbsp;Durza</p>
+      <p class="footer__year">© <span id="year">2026</span></p>
+      <nav class="footer__links" aria-label="Footer">
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </footer>
+
+  </div><!-- /.frame -->
+
+  <script src="script.js"></script>
+</body>
+</html>
